@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Shyu.Core;
 
-namespace Shyu.DSP
+namespace Shyu.DSP.Filters
 {
-    public static class FFT
+    public static class FIR
     {
+
     }
 }
