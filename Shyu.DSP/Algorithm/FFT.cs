@@ -13,6 +13,9 @@ namespace Shyu.DSP
         public Complex[] Wn;
         public int Length;
 
+        public WindowFunction Win;
+        public double[] WinF;
+
         public double[] Abs()
         {
             double[] abs = new double[Length];
@@ -21,7 +24,15 @@ namespace Shyu.DSP
             return abs;
         }
 
-        public void Init(int Length)
+        public double[] LogAbs()
+        {
+            double[] abs = new double[Length];
+            for (int i = 0; i < Result.Length; i++)
+                abs[i] = 10 * Math.Log10(Result[i].Abs2());
+            return abs;
+        }
+
+        public void Init(int Length, WindowFunction func)
         {
             if (Length < 4) throw new ArgumentException();
             this.Length = Length;
@@ -32,6 +43,8 @@ namespace Shyu.DSP
             Result = new Complex[Length];
             Wn[0] = new Complex(1D, 0D);
             for (int i = 1; i < n; i++) Wn[i] = Wn[i - 1] * w;
+            Win = func;
+            if (Win != null) WinF = Win.GetWindow(Length);
         }
 
         public void Transform(double[] Input)
@@ -48,6 +61,10 @@ namespace Shyu.DSP
         public void Transform(Complex[] Input)
         {
             if (Input.Length != Length) throw new ArgumentException();
+            for (int i = 0; i < Length; i++)
+            {
+                Input[i] = Input[i] * WinF[i];
+            }
             int LengthBy2 = Length / 2;
             int LengthBy4 = LengthBy2 / 2;
             int m = 0;
