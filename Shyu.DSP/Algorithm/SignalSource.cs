@@ -13,11 +13,22 @@ namespace Shyu.DSP
         public static double[] SineWave(int N, double Cycle)
         {
             double[] data = new double[N];
-            double ang = Math.PI * 2 / (N - 1);
+            double ang = Math.PI * 2 * Cycle / (N - 1);
             for (int i = 0; i < N; i++)
-                data[i] = Math.Sin(i * ang * Cycle);
+                data[i] = Math.Sin(i * ang);
             return data;
         }
+        public static Complex[] LoWave(int N, double Cycle)
+        {
+            Complex[] data = new Complex[N];
+            double ang = Math.PI * 2 / (N - 1);
+            ang = ang * Cycle;
 
+            for (int i = 0; i < N; i++)
+            {
+                data[i] = new Complex(Math.Cos(i * ang), Math.Sin(i * ang));
+            } 
+            return data;
+        }
     }
 }

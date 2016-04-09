@@ -74,14 +74,24 @@ namespace Shyu.DSP
             return new Complex(a * c1.real, a * c1.imag);
         }
 
+        public static Complex operator *(Complex c1, int a)
+        {
+            return new Complex(a * c1.real, a * c1.imag);
+        }
+
         public static Complex operator *(double a, Complex c1)
         {
             return new Complex(a * c1.real, a * c1.imag);
         }
 
-        public static Complex operator /(Complex c1, double N)
+        public static Complex operator *(Complex c1, double a)
         {
-            return new Complex(c1.real / N, c1.imag / N);
+            return new Complex(a * c1.real, a * c1.imag);
+        }
+
+        public static Complex operator /(Complex c1, double a)
+        {
+            return new Complex(c1.real / a, c1.imag / a);
         }
 
         public Complex Pow(int n)
